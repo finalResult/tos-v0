@@ -2,14 +2,14 @@ $(function () {
     $("#main").css("background", "rgba(0,0,0,.8)");
 });
 
-let ctx = $("#main")[0],
+let canvas = $("#main")[0],
     w = $("html").width(),
     h = $("html").height();
-ctx.style.width = w;
-ctx.style.height = h;
-ctx.width = w;
-ctx.height = h;
-ctx = ctx.getContext("2d");
+canvas.style.width = w;
+canvas.style.height = h;
+canvas.width = w;
+canvas.height = h;
+let ctx = canvas.getContext("2d");
 
 function initos() {}
 
@@ -52,6 +52,12 @@ let mx,
     mousedown = false;
 
 window.setInterval(function () {
+    w = $("html").width();
+    h = $("html").height();
+    canvas.style.width = w;
+    canvas.style.height = h;
+    canvas.width = w;
+    canvas.height = h;
     view();
     click = false;
 }, 0);

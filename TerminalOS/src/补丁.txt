@@ -1,0 +1,1 @@
+main.main = function (ctx) {ctx.fillText("Welcome to terminal world! ", 5, 20);ctx.font = "12px Consolas";ctx.fillStyle = "#AAA";ctx.fillText("It likes you look, it's really a window! ", 5, 40);};
