@@ -40,15 +40,16 @@ initos();
 
 let main = new Window(500, 300);
 
-let mx,
-    my,
-    click = false;
-    mousedown = false;
-
 main.main = function (ctx) {
     ctx.fillText("I'm a window! ", 5, 20);
 }
 main.mount();
+
+let mx,
+    my,
+    click = false,
+    host = false;
+    mousedown = false;
 
 window.setInterval(function () {
     view();

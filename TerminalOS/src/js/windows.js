@@ -1,7 +1,7 @@
 function Window(w, h) {
     let wd = new cw;
-    wd.w = w;
-    wd.h = h;
+    wd.tw = w;
+    wd.th = h;
     return wd;
 }
 
@@ -18,15 +18,17 @@ class cw {
     lx;
     ly;
     host;
-    w = 450;
-    h = 300;
+    w = 0;
+    h = 0;
+    tw = 450;
+    th = 300;
     visual = false;
     canmove = true;
     canzoom = true;
     main = function (ctx) {};
 
     mount () {
-        windows.push({main: this, x: 0, y: 0});
+        windows.push({main: this, tx: (w - this.tw) / 2, ty: (h - this.th) / 2, x: (w - this.w) / 2, y: (h - this.h) / 2});
         this.wini = windows.length - 1;
         indexes.push(this.wini);
     }
@@ -85,20 +87,30 @@ class cw {
         ctx.restore();
 
         if (mousedown) {
-            if (this.in(45, 0, vw - 45, 20)) {
+            if (this.in(45, 0, vw - 45, 20) && !host) {
                 this.host = true;
+                host = true;
+                indexes.splice(indexes.indexOf(this.wini), 1);
+                indexes.push(this.wini);
             }
         } else {
             this.lx = mx;
             this.ly = my;
-            this.host = false;
+            if (this.host = true) {
+                this.host = false;
+                host = false;
+            }
         }
         if (this.host) {
-            windows[this.wini].x += mx - this.lx;
-            windows[this.wini].y += my - this.ly;
+            windows[this.wini].tx += mx - this.lx;
+            windows[this.wini].ty += my - this.ly;
             this.lx = mx;
             this.ly = my;
         }
+        this.w += (this.tw - this.w) * .05;
+        this.h += (this.th - this.h) * .05;
+        windows[this.wini].x += (windows[this.wini].tx - windows[this.wini].x) * .05;
+        windows[this.wini].y += (windows[this.wini].ty - windows[this.wini].y) * .05;
     }
 }
 
